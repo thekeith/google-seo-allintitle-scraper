@@ -7,14 +7,12 @@ gem 'will_paginate', '~> 3.0.4'
 gem 'will_paginate-bootstrap', '~> 1.0.1'
 gem 'airbrake'  
 
-group :assets do
-  gem 'uglifier', '>= 1.0.3'
-  gem 'sass-rails'
-  gem 'railties'
-  gem 'jquery-rails', "~> 4.0.2"
-  gem 'haml'
-  gem "highcharts-rails", "~> 4.0.4"
-end
+gem 'uglifier', '>= 1.0.3'
+gem 'sass-rails'
+gem 'railties'
+gem 'jquery-rails', "~> 4.0.2"
+gem 'haml'
+gem "highcharts-rails", "~> 4.0.4"
 
 group :development, :test do
   gem 'sqlite3'
