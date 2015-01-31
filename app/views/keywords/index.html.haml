@@ -56,7 +56,7 @@
           %td{class: color_for_change(change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count))}
             #{change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count)}
         - else
-          %td{colspan: 5} (no data)
+          %td{colspan: 6} (no data)
         %td
           = link_to 'Show', keyword, class: 'btn btn-sm btn-default', role: :button
           = link_to 'Scrape', get_allintitle_keyword_path(keyword), class: 'btn btn-sm btn-success', method: :post, role: :button, disabled: !keyword.ready_to_scrape?
