@@ -59,8 +59,9 @@ You can view the results in your browser and also can click the excel output met
 
 ## Todo:
 
-* Add pagination and sorted tables
-* IN PROGRESS Add user auth for production use
-* Set up for quick deploy to Heroku
+* COMPLETE Add pagination 
+* Add sorted tables
+* COMPLETE Add user auth for production use
+* IN PROGRESS Set up for quick deploy to Heroku
 * Create worker/cron process for automatic scraping
 * Add Bing and other search engine scraping
