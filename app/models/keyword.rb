@@ -128,7 +128,7 @@ class Keyword < ActiveRecord::Base
   end
   
   def ready_to_scrape?
-    title_results.count == 0 || (title_results.count > 0 && (DateTime.now.to_i - current_allintitle.created_at.to_i)) >= 1.day.to_i ? true : false
+    title_results.count == 0 || (title_results.count > 0 && (DateTime.now.to_i - current_allintitle.created_at.to_i)) >= 23.hours.to_i ? true : false
   end
   
   def slope
