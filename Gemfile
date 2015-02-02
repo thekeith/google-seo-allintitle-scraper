@@ -6,7 +6,7 @@ gem 'nokogiri'
 gem 'heroku'
 gem 'will_paginate', '~> 3.0.4'
 gem 'will_paginate-bootstrap', '~> 1.0.1'
-gem 'airbrake'  
+gem 'airbrake' # comment out if not on Heroku 
 
 gem 'uglifier', '>= 1.0.3'
 gem 'sass-rails'
