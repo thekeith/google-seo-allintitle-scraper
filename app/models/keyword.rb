@@ -51,6 +51,10 @@ class Keyword < ActiveRecord::Base
     self.update_attributes(r_value: self.slope)
   end
   
+  def set_competition_level
+    self.update_attributes(competition: self.competition_level)
+  end
+  
   def switch_favorite
     update_attributes({favorite: !favorite})
   end
@@ -90,6 +94,7 @@ class Keyword < ActiveRecord::Base
     begin
       if self.title_results.create({google_count: result.to_i})
         k.set_r_value
+        k.set_competition_level
         return true
       else
         return false
