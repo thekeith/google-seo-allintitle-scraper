@@ -47,6 +47,10 @@ class Keyword < ActiveRecord::Base
     end
   end
   
+  def set_r_value
+    self.update_attributes(r_value: self.slope)
+  end
+  
   def switch_favorite
     update_attributes({favorite: !favorite})
   end
@@ -84,8 +88,12 @@ class Keyword < ActiveRecord::Base
     
     # Replaced with a new model for time-based analysis
     begin
-      self.title_results.create({google_count: result.to_i})
-      return true
+      if self.title_results.create({google_count: result.to_i})
+        k.set_r_value
+        return true
+      else
+        return false
+      end
     rescue Exception => e
       puts e.message
       puts e.backtrace
