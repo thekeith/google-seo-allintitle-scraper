@@ -93,8 +93,8 @@ class Keyword < ActiveRecord::Base
     # Replaced with a new model for time-based analysis
     begin
       if self.title_results.create({google_count: result.to_i})
-        k.set_r_value
-        k.set_competition_level
+        self.set_r_value
+        self.set_competition_level
         return true
       else
         return false
