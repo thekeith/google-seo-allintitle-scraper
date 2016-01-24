@@ -40,7 +40,13 @@ class Keyword < ActiveRecord::Base
       puts "********************"
       if scraped
         # Sleep for couple seconds to avoid getting kicked out by Google
-        sleep_time = 13+Random.rand(17).seconds
+        sleep_time = 30+Random.rand(17).seconds
+        puts "Sleeping for " + sleep_time.to_s + " seconds"
+        sleep sleep_time
+      else
+        puts "Scrape failed!"
+        puts "********************"
+        sleep_time = 30+Random.rand(17).seconds
         puts "Sleeping for " + sleep_time.to_s + " seconds"
         sleep sleep_time
       end
