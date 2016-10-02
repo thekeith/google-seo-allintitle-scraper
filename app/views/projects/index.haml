@@ -1,0 +1,20 @@
+- if @projects.empty?
+  %h4 Hey there
+  %p Welcome! Check out #{link_to 'the instructions', instructions_path} to get started!
+
+
+- else
+  %h4 Projects
+  %table.table.table-striped
+    %tr
+      %th Name
+      %th Stats
+      %th 
+    - @projects.each do |project|
+      %tr
+        %td= project.name
+        %td #{project.keywords.count} Keywords
+        %td
+          = link_to 'Keywords', project_keywords_path(project), class: 'btn btn-sm btn-default', role: :button
+          = link_to 'Edit', edit_project_path(project), class: 'btn btn-sm btn-primary', role: :button
+%p= link_to 'New Project', new_project_path, class: 'btn btn-success', role: :button

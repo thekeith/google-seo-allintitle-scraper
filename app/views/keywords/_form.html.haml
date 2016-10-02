@@ -1,4 +1,4 @@
-= form_for(@keyword, html: {class: 'form-horizontal'}) do |f|
+= form_for([@project,@keyword], html: {class: 'form-horizontal'}) do |f|
   - if @keyword.errors.any?
     .form-group
       .alert.alert-warning{role: :alert}

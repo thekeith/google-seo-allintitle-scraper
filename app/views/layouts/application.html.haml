@@ -14,9 +14,11 @@
           = link_to 'Google SEO Allintitle Scraper', '/', class: 'navbar-brand'
         #navbar
           %ul.nav.navbar-nav
-            %li= link_to 'Keywords', keywords_path
-            %li= link_to 'Add multiple keywords', new_keyword_set_path
-            %li= link_to 'Get CSV output', excel_output_keywords_path
+            %li= link_to 'Projects', projects_path
+            - unless @project.nil?
+              %li= link_to 'Keywords', project_keywords_path(@project)
+              %li= link_to 'Add multiple keywords', new_project_keyword_set_path(@project)
+              %li= link_to 'Get CSV output', excel_output_project_keywords_path(@project)
             %li= link_to 'Instructions', instructions_path
     .container
       .page-header

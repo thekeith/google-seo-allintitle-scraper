@@ -1,5 +1,7 @@
 class Keyword < ActiveRecord::Base
   
+  belongs_to :project
+  
   validates :word, uniqueness: true
   # validates :favorite, presence: true
   

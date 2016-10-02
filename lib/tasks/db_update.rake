@@ -39,4 +39,21 @@ namespace :db_update do
     end
     
   end
+  
+  desc "Update existing keywords to use a default project"
+  task :set_default_project => :environment do
+    begin
+      project = Project.new({name: "Default Project", description: 'Default project for initial keyword migration'})
+      if project.save
+        Keyword.all.each do |k|
+          k.update_attributes({project_id: project.id}) if k.project_id.nil?
+        end
+      else
+        raise 'could not save default project'
+      end
+    rescue Exception => e
+      puts e.message
+      puts e.backtrace
+    end
+  end
 end

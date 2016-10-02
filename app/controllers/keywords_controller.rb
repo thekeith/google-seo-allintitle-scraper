@@ -2,7 +2,8 @@ class KeywordsController < ApplicationController
   # GET /keywords
   # GET /keywords.json
   def index
-    @keywords = Keyword.all.paginate(page: params[:page], per_page: per_page)
+    @project = Project.find(params[:project_id])
+    @keywords = @project.keywords.all.paginate(page: params[:page], per_page: per_page)
     @keywords.where!(favorite: true) if params[:favorite]
     @title = 'Keywords Index'
 
@@ -13,7 +14,8 @@ class KeywordsController < ApplicationController
   end
   
   def excel_output
-    @keywords = Keyword.all
+    @project = Project.find(params[:project_id])
+    @keywords = @project.keywords
     @title = 'Keywords Excel Output'
     
     respond_to do |format|
@@ -24,7 +26,8 @@ class KeywordsController < ApplicationController
   # GET /keywords/1
   # GET /keywords/1.json
   def show
-    @keyword = Keyword.find(params[:id])
+    @project = Project.find(params[:project_id])
+    @keyword = @project.keywords.find(params[:id])
     @title_results = @keyword.title_results.paginate(page: params[:page], per_page: per_page)
     @title = "Showing Keyword: #{@keyword.word}"
 
@@ -37,7 +40,8 @@ class KeywordsController < ApplicationController
   # GET /keywords/new
   # GET /keywords/new.json
   def new
-    @keyword = Keyword.new
+    @project = Project.find(params[:project_id])
+    @keyword = @project.keywords.new
     @title = 'New Keyword'
     
     respond_to do |format|
@@ -49,11 +53,12 @@ class KeywordsController < ApplicationController
   # POST /keywords
   # POST /keywords.json
   def create
-    @keyword = Keyword.new({word: params[:keyword][:word]})
+    @project = Project.find(params[:project_id])
+    @keyword = @project.keywords.new({word: params[:keyword][:word]})
 
     respond_to do |format|
       if @keyword.save
-        format.html { redirect_to @keyword, notice: 'Keyword was successfully created.' }
+        format.html { redirect_to project_keyword_path(@project,@keyword), notice: 'Keyword was successfully created.' }
         format.json { render json: @keyword, status: :created, location: @keyword }
       else
         format.html { render action: "new" }
@@ -65,11 +70,12 @@ class KeywordsController < ApplicationController
   # DELETE /keywords/1
   # DELETE /keywords/1.json
   def destroy
-    @keyword = Keyword.find(params[:id])
+    @project = Project.find(params[:project_id])
+    @keyword = @project.keywords.find(params[:id])
     @keyword.destroy
 
     respond_to do |format|
-      format.html { redirect_to keywords_url }
+      format.html { redirect_to project_keywords_path(@project) }
       format.json { head :no_content }
     end
   end
@@ -77,11 +83,12 @@ class KeywordsController < ApplicationController
   # POST /keywords/1/remove_allintitle
   # POST /keywords/1/remove_allintitle.json
   def reset_allintitle
-    @keyword = Keyword.find(params[:id])
+    @project = Project.find(params[:project_id])
+    @keyword = @project.keywords.find(params[:id])
     
     respond_to do |format|
       if @keyword.reset_allintitle
-        format.html { redirect_to '/', notice: 'Allintitle number for keyword successfully removed.'}
+        format.html { redirect_to project_keywords_path(@project), notice: 'Allintitle number for keyword successfully removed.'}
         format.json { head :no_content }
       else
         format.html { render action: "show" }
@@ -91,11 +98,12 @@ class KeywordsController < ApplicationController
   end
   
   def switch_favorite
-    @keyword = Keyword.find(params[:id])
+    @project = Project.find(params[:project_id])
+    @keyword = @project.keywords.find(params[:id])
     
     respond_to do |format|
       if @keyword.switch_favorite
-        format.html { redirect_to (params[:index] ? keywords_path : @keyword), notice: 'Favorite Updated!'}
+        format.html { redirect_to (params[:index] ? project_keywords_path(@project) : project_keyword_path(@project,@keyword)), notice: 'Favorite Updated!'}
         format.json { render json: {favorite: @keyword.favorite} } # make sure it is returning the correct value!
       else
         format.html { render action: "show" }
@@ -105,14 +113,18 @@ class KeywordsController < ApplicationController
   end
   
   def get_allintitle
-    @keyword = Keyword.find(params[:id])
+    @project = Project.find(params[:project_id])
+    @keyword = @project.keywords.find(params[:id])
     
     respond_to do |format|
       if @keyword.get_allintitle
-        format.html { redirect_to @keyword, notice: 'Allintitle updated' }
+        format.html { redirect_to project_keyword_path(@project,@keyword), notice: 'Allintitle updated' }
         format.json { head :no_content }
       else
-        format.html { render action: 'show' }
+        # format.html { redirect_to project_keyword_path(@project,@keyword) }
+        @title_results = @keyword.title_results.paginate(page: params[:page], per_page: per_page)
+        @title = "Showing Keyword: #{@keyword.word}"
+        format.html { render action: "show" }
         format.json { render json: @keyword.errors, status: :unprocessable_entity }
       end
     end
