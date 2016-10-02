@@ -1,4 +1,4 @@
-= form_for(:keyword_set, url: keyword_sets_path, html: {class: 'form-horizontal'}) do |f|
+= form_for(:keyword_set, url: project_keyword_sets_path(@project), html: {class: 'form-horizontal'}) do |f|
   - if @keyword_set.errors.any?
     .form-group
       .alert.alert-warning{role: :alert}
@@ -15,4 +15,4 @@
     .col-sm-offset-2.col-sm-10
       = f.submit 'Submit', class: 'btn btn-success'
 
-= link_to 'Back', keywords_path, class: 'btn btn-default', role: :button
+= link_to 'Back', project_keywords_path(@project), class: 'btn btn-default', role: :button

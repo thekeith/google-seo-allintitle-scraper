@@ -3,7 +3,7 @@ class Keyword < ActiveRecord::Base
   belongs_to :project
   
   validates :word, uniqueness: true
-  # validates :favorite, presence: true
+  validates :project_id, presence: true
   
   has_many :title_results, dependent: :destroy
   

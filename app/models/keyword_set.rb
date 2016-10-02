@@ -1,6 +1,6 @@
 class KeywordSet
   include ActiveRecord::Validations
-  attr_accessor :keywords
+  attr_accessor :keywords, :project
   
   validate :all_keywords_ok
   
@@ -15,7 +15,7 @@ class KeywordSet
   def keywords=(incoming_data)
     @keywords = []
     incoming_data.split("\r\n").each do |k|
-      @keywords << Keyword.new(:word => k) unless Keyword.where(word: k).count > 0
+      @keywords << Keyword.new(:word => k, :project_id => project.id) unless Keyword.where(word: k).count > 0
     end
   end
   
