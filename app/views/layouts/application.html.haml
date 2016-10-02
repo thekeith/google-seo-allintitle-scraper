@@ -15,7 +15,7 @@
         #navbar
           %ul.nav.navbar-nav
             %li= link_to 'Projects', projects_path
-            - unless @project.nil?
+            - unless @project.nil? || @project.new_record?
               %li= link_to 'Keywords', project_keywords_path(@project)
               %li= link_to 'Add multiple keywords', new_project_keyword_set_path(@project)
               %li= link_to 'Get CSV output', excel_output_project_keywords_path(@project)
