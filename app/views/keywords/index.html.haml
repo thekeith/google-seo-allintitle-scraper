@@ -18,22 +18,22 @@
     %tr
       %td
         Keywords:
-        = number_with_delimiter(Keyword.all.count, :delimiter => ',')
+        = number_with_delimiter(@project.keywords.all.count, :delimiter => ',')
       %td
         Favorites:
-        = number_with_delimiter(Keyword.where(favorite: true).count, :delimiter => ',')
+        = number_with_delimiter(@project.keywords.where(favorite: true).count, :delimiter => ',')
       %td
         Low Competition:
-        %span.green= @keywords.where(competition: Keyword.competition_levels[:low]).count
+        %span.green= @keywords.where(competition: @project.keywords.competition_levels[:low]).count
       %td
         Mild Competition:
-        %span.blue= @keywords.where(competition: Keyword.competition_levels[:mild]).count
+        %span.blue= @keywords.where(competition: @project.keywords.competition_levels[:mild]).count
       %td
         Medium Competition:
-        %span.orange= @keywords.where(competition: Keyword.competition_levels[:medium]).count
+        %span.orange= @keywords.where(competition: @project.keywords.competition_levels[:medium]).count
       %td
         High Competition:
-        %span.red= @keywords.where(competition: Keyword.competition_levels[:high]).count
+        %span.red= @keywords.where(competition: @project.keywords.competition_levels[:high]).count
   = will_paginate @keywords, renderer: BootstrapPagination::Rails
   %table.table.table-striped
     %tr
