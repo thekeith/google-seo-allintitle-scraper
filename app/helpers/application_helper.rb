@@ -33,9 +33,13 @@ module ApplicationHelper
   end
   
   def color_for_percent_change(percent_change)
-    return '#000' if percent_change == 0
-    return "rgb(#{(100 * (percent_change / 100)).to_i + 155},0,0); /* greater than 0 /*" if percent_change > 0
-    return "rgb(0,#{(100 * ((percent_change - percent_change - percent_change) / 100)).to_i + 155},0); /* less than 0 /*" if percent_change < 0
+    begin
+      return '#000' if percent_change == 0
+      return "rgb(#{(100 * (percent_change / 100)).to_i + 155},0,0); /* greater than 0 /*" if percent_change > 0
+      return "rgb(0,#{(100 * ((percent_change - percent_change - percent_change) / 100)).to_i + 155},0); /* less than 0 /*" if percent_change < 0
+    rescue
+      return '#ccc'
+    end
   end
   
   def glyphicon(icon)
